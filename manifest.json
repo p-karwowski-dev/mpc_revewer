@@ -1,0 +1,14 @@
+{
+  "name": "mpc_reviewer",
+  "description": "Local MCP server that reviews GitLab merge requests",
+  "tools": {
+    "review_mr": {
+      "description": "Fetches and reviews a GitLab merge request",
+      "parameters": {
+        "projectId": "number",
+        "mrIid": "number"
+      }
+    }
+  },
+  "entrypoint": "http://localhost:8080/webhook"
+}
