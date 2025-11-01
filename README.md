@@ -43,7 +43,7 @@ MPC server linked with github or gitlab and AI agent, performing code review.
 
 4. **Set up webhooks in GitLab or GitHub**:
 
-   Add a new webhook according to the git, replacing {your-tunnel-url} with your public url.
+   Add a new webhook to the git, replacing {your-tunnel-url} with your public url.
 
    ```bash
    https://your-tunnel-url.trycloudflare.com/webhook/gitlab
