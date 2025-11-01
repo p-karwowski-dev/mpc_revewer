@@ -9,6 +9,21 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
+if (
+  !process.env.GITHUB_PERSONAL_ACCESS_TOKEN &&
+  !process.env.GITLAB_PERSONAL_ACCESS_TOKEN
+) {
+  console.error(
+    "❌ Error: At least one of GITHUB_PERSONAL_ACCESS_TOKEN or GITLAB_PERSONAL_ACCESS_TOKEN must be set."
+  );
+  process.exit(1);
+}
+
+if (!process.env.OPENAI_API_KEY) {
+  console.error("❌ Error: OPENAI_API_KEY must be set.");
+  process.exit(1);
+}
+
 app.post("/webhook/github", async (req, res) => {
   const event = req.body;
 
