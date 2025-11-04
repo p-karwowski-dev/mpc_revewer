@@ -1,15 +1,16 @@
 # MPC server code reviewer
 
-MPC server linked with github or gitlab and AI agent, performing code review.
+MPC server linked with github, gitlab and AI agent performing code reviews.
+This tool supports both webhooks and direct input of Pull Request (PR) or Merge Request (MR) URLs via the terminal, providing flexibility in how code reviews are initiated.
 
-| Component       | Purpose                        |
-| --------------- | ------------------------------ |
-| `server.ts`     | Receives MR events             |
-| `gitlab.ts`     | Fetches MR diff via GitLab API |
-| `github.ts`     | Fetches MR diff via GitHub API |
-| `reviewer.ts`   | Sends diff to AI for analysis  |
-| `.env`          | Stores tokens and config       |
-| `manifest.json` | MCP integration for AI         |
+| Component       | Purpose                                  |
+| --------------- | ---------------------------------------- |
+| `server.ts`     | Receives MR events                       |
+| `gitlab.ts`     | Fetches and processing MR via GitLab API |
+| `github.ts`     | Fetches and processing PR via GitHub API |
+| `reviewer.ts`   | Sends diff to AI for analysis            |
+| `.env`          | Stores tokens and config                 |
+| `manifest.json` | MCP integration for AI                   |
 
 ### Prerequisites to run locally
 
@@ -52,8 +53,22 @@ MPC server linked with github or gitlab and AI agent, performing code review.
 
 5. **Start the server**:  
    Run the following command to start the server:
+
    ```bash
-   npm start
+   npm run dev
    ```
 
-Your local setup is now complete, and the server is ready to receive and process merge request events.
+   For development is suggested to use watch mode, however this mode does not support terminal inputs.
+
+   ```bash
+   npm run dev:watch
+   ```
+
+6. **Use it! 🚀**:
+
+   Once the server is running, you can use it in two ways:
+
+   - **Trigger via Webhooks**: Open a Pull Request (PR) or Merge Request (MR) in your GitHub or GitLab repository. The configured webhook will automatically send the event to your server for processing.
+   - **Direct Input**: Copy the URL of a PR or MR and paste it into the terminal when prompted. The server will fetch and analyze the changes directly.
+
+   The AI-powered reviewer will analyze the code changes and provide feedback.
