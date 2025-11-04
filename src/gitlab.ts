@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { reviewDiff } from "./reviewer";
 
 export async function fetchMergeRequestDiff(
   projectId: number,
@@ -20,4 +21,26 @@ export async function fetchMergeRequestDiff(
 
   const data = (await res.json()) as any;
   return data.changes.map((c: any) => c.diff).join("\n");
+}
+
+export async function processMR(projectId: number, mrIid: number) {
+  console.log(`Process MR, project: ${projectId}, id: ${mrIid}... `);
+
+  try {
+    console.log("Fetching diff... ");
+
+    const diff = await fetchMergeRequestDiff(
+      projectId,
+      mrIid,
+      process.env.GITLAB_PERSONAL_ACCESS_TOKEN!
+    );
+
+    console.log("Reviewing MR... ");
+
+    const review = await reviewDiff(diff);
+    console.log("\n🧠 --- AI Review for MR #" + mrIid + " ---\n");
+    console.log(review);
+  } catch (err) {
+    console.error("❌ Processing MR failed", err);
+  }
 }

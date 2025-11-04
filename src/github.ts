@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import { reviewDiff } from "./reviewer";
 
 export async function fetchPullRequestDiff(
   owner: string,
@@ -21,4 +22,29 @@ export async function fetchPullRequestDiff(
   }
 
   return await res.text();
+}
+
+export async function processPR(owner: string, repo: string, prNumber: number) {
+  console.log(
+    `Processing PR, owner: ${owner}, repo: ${repo}, id: ${prNumber}... `
+  );
+
+  try {
+    console.log("Fetching diff... ");
+
+    const diff = await fetchPullRequestDiff(
+      owner,
+      repo,
+      prNumber,
+      process.env.GITHUB_PERSONAL_ACCESS_TOKEN!
+    );
+
+    console.log("Reviewing... ");
+
+    const review = await reviewDiff(diff);
+    console.log("\n🧠 --- AI Review for PR #" + prNumber + " ---\n");
+    console.log(review);
+  } catch (err) {
+    console.error("❌ Processing PR failed", err);
+  }
 }
