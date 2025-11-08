@@ -1,5 +1,5 @@
 {
-  "name": "mpc_reviewer",
+  "name": "mcp_reviewer",
   "description": "Local MCP server that reviews GitLab merge requests",
   "tools": {
     "review_mr": {

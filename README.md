@@ -1,6 +1,6 @@
-# MPC server code reviewer
+# MCP server code reviewer
 
-MPC server linked with github, gitlab and AI agent performing code reviews.
+MCP server linked with github, gitlab and AI agent performing code reviews.
 This tool supports both webhooks and direct input of Pull Request (PR) or Merge Request (MR) URLs via the terminal, providing flexibility in how code reviews are initiated.
 
 | Component       | Purpose                                  |
